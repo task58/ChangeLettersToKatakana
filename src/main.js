@@ -25,6 +25,7 @@ var outputElement = document.getElementById("output_text")
 
 var isRemoveSpaceElement = document.getElementById("isRemoveSpace")
 var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters")
+var isReplaceHaToWaElement = document.getElementById("isReplaceHaToWa")
 
 /**
  * YMMの発音記号を削除する
@@ -36,7 +37,7 @@ function removePhoneticSymbols(text){
 }
 
 /**
- * 
+ * 空白を削除する
  * @param {string} text 
  * @returns {string}
  */
@@ -45,7 +46,7 @@ function removeSpace(text){
 }
 
 /**
- * 
+ * ァ、ィ、ゥなどを大文字に置き換える
  * @param {string} text 
  * @returns {string}
  */
@@ -63,10 +64,20 @@ function replaceSmallLetters(text){
     return text;
 }
 
+/**
+ * 助詞「は」を「ワ」に置き換える
+ * @param {string} text 
+ * @returns {string}
+ */
+function replaceHaToWa(text){
+    return text.replace(/ハ /g,"ワ").replace(/ハ　/g,"ワ");
+}
+
 function convert(){
 
     var isRemoveSpace = isRemoveSpaceElement.checked;
     var isReplaceSmallLetters = isReplaceSmallLettersElement.checked;
+    var isReplaceHaToWa = isReplaceHaToWaElement.checked;
 
     /**
      * @type {string}
@@ -85,8 +96,9 @@ function convert(){
          * @type {string}
          */
         var converted = res.data.converted;    
-        var outputText = converted;    
-        outputText = isRemoveSpace ? removeSpace(converted) : outputText;
+        var outputText = converted;
+        outputText = isReplaceHaToWa ? replaceHaToWa(outputText) : outputText;
+        outputText = isRemoveSpace ? removeSpace(outputText) : outputText;
         outputText = isReplaceSmallLetters ? replaceSmallLetters(outputText) : outputText;
 
         outputElement.value = outputText;
