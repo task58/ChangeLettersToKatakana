@@ -4,7 +4,6 @@ const axios = require("axios");
 
 const API_KEY = `fbabe817c9dcd1562fc5dc778dee45e27e5ebdb176a4bd1303621b367420e62f`; //API KEY
 const API_URL = `https://labs.goo.ne.jp/api/hiragana`;
-const OUTPUT_TYPE = `katakana`; 
 
 var optionsTemp = {
     method: 'post',
@@ -16,7 +15,7 @@ var optionsTemp = {
     data: {
         app_id: API_KEY,
         sentence: null,
-        output_type: OUTPUT_TYPE
+        output_type: null
     }
 };
 
@@ -24,20 +23,50 @@ var inputElement = document.getElementById("input_text")
 var inputButton = document.getElementById("input_button")
 var outputElement = document.getElementById("output_text")
 
-console.log(document.getElementById("output_text"))
+var isRemoveSpaceElement = document.getElementById("isRemoveSpace")
+var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters")
+
+/**
+ * YMMの発音記号を削除する
+ * @param {string} text 
+ */
+function removePhoneticSymbols(text){
+    var output = text.replace("/","").replace("'","").replace("_","");
+    return output;
+}
 
 /**
  * 
  * @param {string} text 
+ * @returns {string}
  */
-function removePhoneticSymbols(text){
-    console.log(output)
-    var output = text.replace("/","").replace("'","").replace("_","");
-    console.log(output)
-    return output;
+function removeSpace(text){
+    return text.replace(/　/g,"").replace(/ /g,"");
+}
+
+/**
+ * 
+ * @param {string} text 
+ * @returns {string}
+ */
+function replaceSmallLetters(text){
+    var replaceLetters = {
+        "ァ" : "ア",
+        "ィ" : "イ",
+        "ゥ" : "ウ",
+        "ェ" : "エ",
+        "ォ" : "オ"
+    }
+    for (const key in replaceLetters) {
+        text = text.replace(new RegExp(key,"g"),replaceLetters[key])
+    }
+    return text;
 }
 
 function convert(){
+
+    var isRemoveSpace = isRemoveSpaceElement.checked;
+    var isReplaceSmallLetters = isReplaceSmallLettersElement.checked;
 
     /**
      * @type {string}
@@ -49,15 +78,18 @@ function convert(){
 
     var options = optionsTemp;
     options.data.sentence = text;
+    options.data.output_type = "katakana";
 
     axios(options).then((res) => {
         /**
          * @type {string}
          */
-        var converted = res.data.converted;
-        console.log(converted)
-        outputElement.value = converted.replace(/　/g,"").replace(/ /g,"")
-        console.log(converted)
+        var converted = res.data.converted;    
+        var outputText = converted;    
+        outputText = isRemoveSpace ? removeSpace(converted) : outputText;
+        outputText = isReplaceSmallLetters ? replaceSmallLetters(outputText) : outputText;
+
+        outputElement.value = outputText;
     })
     .catch((err) => {
         console.log(err);
