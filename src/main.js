@@ -4,10 +4,9 @@ const axios = require("axios");
 
 const API_KEY = `fbabe817c9dcd1562fc5dc778dee45e27e5ebdb176a4bd1303621b367420e62f`; //API KEY
 const API_URL = `https://labs.goo.ne.jp/api/hiragana`;
-var SENTECE = process.argv[2];
-const OUTPUT_TYPE = `katakana`; //or `hiragana`
+const OUTPUT_TYPE = `katakana`; 
 
-var options = {
+var optionsTemp = {
     method: 'post',
     url: API_URL,
     headers: {
@@ -16,14 +15,34 @@ var options = {
     },
     data: {
         app_id: API_KEY,
-        sentence: SENTECE,
+        sentence: null,
         output_type: OUTPUT_TYPE
     }
 };
 
-axios(options).then((res) => {
-    console.log(res.data);
-})
-.catch((err) => {
-    console.log(err);
-});
+var inputElement = document.getElementById("input_text")
+var inputButton = document.getElementById("input_button")
+var outputElement = document.getElementById("output_text")
+
+console.log(document.getElementById("output_text"))
+
+function convert(){
+
+    var text = inputElement.value
+
+    var options = optionsTemp;
+    options.data.sentence = text;
+
+    axios(options).then((res) => {
+        var converted = res.data.converted;
+        console.log(converted)
+        outputElement.value = converted
+        console.log(converted)
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+}
+
+inputButton.addEventListener("click",convert)
