@@ -26,17 +26,37 @@ var outputElement = document.getElementById("output_text")
 
 console.log(document.getElementById("output_text"))
 
+/**
+ * 
+ * @param {string} text 
+ */
+function removePhoneticSymbols(text){
+    console.log(output)
+    var output = text.replace("/","").replace("'","").replace("_","");
+    console.log(output)
+    return output;
+}
+
 function convert(){
 
-    var text = inputElement.value
+    /**
+     * @type {string}
+     */
+    var input = inputElement.value;
+    console.log(input);
+    var text = removePhoneticSymbols(input)
+    
 
     var options = optionsTemp;
     options.data.sentence = text;
 
     axios(options).then((res) => {
+        /**
+         * @type {string}
+         */
         var converted = res.data.converted;
         console.log(converted)
-        outputElement.value = converted
+        outputElement.value = converted.replace(/　/g,"").replace(/ /g,"")
         console.log(converted)
     })
     .catch((err) => {
@@ -45,4 +65,7 @@ function convert(){
 
 }
 
+
+
 inputButton.addEventListener("click",convert)
+
