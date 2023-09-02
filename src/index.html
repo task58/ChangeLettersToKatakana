@@ -17,6 +17,7 @@
     <a href="#" onclick="history.back();return false;">前のページに戻る</a>
 
     <h1>YMMでの棒読み用にテキストをカタカナに変換</h1>
+    <h3>v1.2.0</h3>
     <p>YMMで棒読みするときはオールカタカナにすれば良いと気付いた。</p>
     <p>上のテキストボックスに文字を入力して変換ボタンを押すと下のテキストボックスに変換後の文字列が出力されます。</p>
 
@@ -30,14 +31,20 @@
     <h4>YMM向けに必須の項目は<span style="color: blue;">青文字</span>にしてあります。(最初からチェックされています)</h4>
     <label style="color: blue;"><input type="checkbox" id="isRemoveSpace" checked>出力時に空白を削除する</label><br>
     <label style="color: blue;"><input type="checkbox" id="isReplaceSmallLetters" checked>出力時に一部の小文字を大文字に置き換える(ァ、ィ、ゥ、ェ、ォが変換されます)</label><br>
-    <label ><input type="checkbox" id="isReplaceHaToWa">助詞「は」を「ワ」に置き換える(精度は低いと思われます)</label><br>
+    <label ><input type="checkbox" id="isReplaceHaToWa">助詞「は」を「ワ」に置き換える(精度は要検証)</label><br>
     
+    <h3>変更履歴</h3>
+    <pre>
+    2023/9/2 v1.2.0 助詞「は」を「ワ」に自動的に置き換える機能をオプションで追加
+    2023/9/2 v1.1.0 YMM使用者向けオプションを追加
+    2023/9/2 v1.0.0 公開
+    </pre>
 
     
-    <h5>参考</h5>
+    <h4>参考</h4>
     <a href="https://qiita.com/n0bisuke/items/878d2c37afe5a2b83369">Node.jsでひらがな化APIを使って漢字からひらがな/カタカナ変換をする</a>
 
-    <h5>使用API</h5>
+    <h4>使用API</h4>
     <a href="https://labs.goo.ne.jp/api/jp/hiragana-translation/">gooラボ：カタカナ化API</a>
     
     <script src="./main.js"></script>

@@ -5,4 +5,4 @@ gooラボのひらがな化APIを使用しています。
 
 ## 利用
 
-[https://task58.github.io/changeletterstokatakana/dist/index.html]
+https://task58.github.io/changeletterstokatakana/dist/index.html
