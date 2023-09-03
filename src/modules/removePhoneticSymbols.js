@@ -3,7 +3,21 @@
  * @param {string} text 
  */
 export default function removePhoneticSymbols(text){
-    var output = text.replace("/","").replace("'","").replace("_","");
+    var removeSymbols = [
+        new RegExp("/","g"),
+        new RegExp("'","g"),
+        new RegExp("_","g"),
+        new RegExp("。","g"),
+        new RegExp("、","g"),
+        new RegExp("？","g"),
+        new RegExp(/\?/,"g"),
+        new RegExp(":","g"),
+        new RegExp(/\?/,"g")
+    ]
+    var output = text
+    for(var lit of removeSymbols){
+        output = output.replace(lit,"")
+    }
     return output;
 }
 

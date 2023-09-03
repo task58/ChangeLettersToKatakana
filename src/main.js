@@ -28,6 +28,7 @@ var isRemoveSpaceElement = document.getElementById("isRemoveSpace");
 var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters");
 var isReplaceParticleElement = document.getElementById("isReplaceParticle");
 var isChangeToHiraganaElement = document.getElementById("isChangeToHiragana");
+var isRemovePhoneticSymbolsElement = document.getElementById("isRemovePhoneticSymbols")
 
 //各種テキスト処理に扱う関数のインポート
 import removePhoneticSymbols from "./modules/removePhoneticSymbols"
@@ -43,13 +44,14 @@ function convert(){
     var isRemoveSpace = isRemoveSpaceElement.checked;
     var isReplaceSmallLetters = isReplaceSmallLettersElement.checked;
     var isReplaceParticle = isReplaceParticleElement.checked;
+    var isRemovePhoneticSymbols = isRemovePhoneticSymbolsElement.checked;
 
     /**
      * @type {string}
      */
-    var input = inputElement.value;
-    console.log(input);
-    var text = removePhoneticSymbols(input)
+    var input = inputElement.value;   
+    var text = isRemovePhoneticSymbols ? removePhoneticSymbols(input) : input;
+    console.log(text);
     
     var options = optionsTemp;
     options.data.sentence = text;
@@ -69,6 +71,7 @@ function convert(){
     })
     .catch((err) => {
         console.log(err);
+        outputElement.value = toString(err);
     });
 }
 
