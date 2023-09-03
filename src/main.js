@@ -5,7 +5,7 @@ const axios = require("axios");
 const API_KEY = `fbabe817c9dcd1562fc5dc778dee45e27e5ebdb176a4bd1303621b367420e62f`; //API KEY
 const API_URL = `https://labs.goo.ne.jp/api/hiragana`;
 
-var optionsTemp = {
+const optionsTemp = {
     method: 'post',
     url: API_URL,
     headers: {
@@ -19,67 +19,30 @@ var optionsTemp = {
     }
 };
 
-var inputElement = document.getElementById("input_text");
-var inputButton = document.getElementById("input_button");
-var outputElement = document.getElementById("output_text");
+var inputElement = document.getElementById("input_text"); //入力用テキストエリア
+var inputButton = document.getElementById("input_button"); //変換ボタン
+var outputElement = document.getElementById("output_text"); //出力用テキストエリア
 
+//オプション類
 var isRemoveSpaceElement = document.getElementById("isRemoveSpace");
 var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters");
-var isReplaceHaToWaElement = document.getElementById("isReplaceHaToWa");
+var isReplaceParticleElement = document.getElementById("isReplaceParticle");
 var isChangeToHiraganaElement = document.getElementById("isChangeToHiragana");
 
-/**
- * YMMの発音記号を削除する
- * @param {string} text 
- */
-function removePhoneticSymbols(text){
-    var output = text.replace("/","").replace("'","").replace("_","");
-    return output;
-}
+//各種テキスト処理に扱う関数のインポート
+import removePhoneticSymbols from "./modules/removePhoneticSymbols"
+import removeSpace from "./modules/removeSpace";
+import replaceSmallLetters from "./modules/replaceSmallLetters";
+import replaceParticle from "./modules/replaceParticle";
 
-/**
- * 空白を削除する
- * @param {string} text 
- * @returns {string}
- */
-function removeSpace(text){
-    return text.replace(/　/g,"").replace(/ /g,"");
-}
-
-/**
- * ァ、ィ、ゥなどを大文字に置き換える
- * @param {string} text 
- * @returns {string}
- */
-function replaceSmallLetters(text){
-    var replaceLetters = {
-        "ァ" : "ア",
-        "ィ" : "イ",
-        "ゥ" : "ウ",
-        "ェ" : "エ",
-        "ォ" : "オ"
-    }
-    for (const key in replaceLetters) {
-        text = text.replace(new RegExp(key,"g"),replaceLetters[key])
-    }
-    return text;
-}
-
-/**
- * 助詞「は」を「ワ」に置き換える
- * @param {string} text 
- * @returns {string}
- */
-function replaceHaToWa(text){
-    return text.replace(/ハ /g,"ワ").replace(/ハ　/g,"ワ");
-}
-
+//変換
 function convert(){
 
+    //各種オプション情報を取得
     var isChangeToHiragana = isChangeToHiraganaElement.checked;
     var isRemoveSpace = isRemoveSpaceElement.checked;
     var isReplaceSmallLetters = isReplaceSmallLettersElement.checked;
-    var isReplaceHaToWa = isReplaceHaToWaElement.checked;
+    var isReplaceParticle = isReplaceParticleElement.checked;
 
     /**
      * @type {string}
@@ -88,7 +51,6 @@ function convert(){
     console.log(input);
     var text = removePhoneticSymbols(input)
     
-
     var options = optionsTemp;
     options.data.sentence = text;
     options.data.output_type = isChangeToHiragana ? "hiragana" : "katakana";
@@ -99,7 +61,7 @@ function convert(){
          */
         var converted = res.data.converted;    
         var outputText = converted;
-        outputText = isReplaceHaToWa ? replaceHaToWa(outputText) : outputText;
+        outputText = isReplaceParticle ? replaceParticle(outputText) : outputText;
         outputText = isRemoveSpace ? removeSpace(outputText) : outputText;
         outputText = isReplaceSmallLetters ? replaceSmallLetters(outputText) : outputText;
 
@@ -108,10 +70,6 @@ function convert(){
     .catch((err) => {
         console.log(err);
     });
-
 }
 
-
-
 inputButton.addEventListener("click",convert)
-
