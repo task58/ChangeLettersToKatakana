@@ -19,13 +19,14 @@ var optionsTemp = {
     }
 };
 
-var inputElement = document.getElementById("input_text")
-var inputButton = document.getElementById("input_button")
-var outputElement = document.getElementById("output_text")
+var inputElement = document.getElementById("input_text");
+var inputButton = document.getElementById("input_button");
+var outputElement = document.getElementById("output_text");
 
-var isRemoveSpaceElement = document.getElementById("isRemoveSpace")
-var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters")
-var isReplaceHaToWaElement = document.getElementById("isReplaceHaToWa")
+var isRemoveSpaceElement = document.getElementById("isRemoveSpace");
+var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters");
+var isReplaceHaToWaElement = document.getElementById("isReplaceHaToWa");
+var isChangeToHiraganaElement = document.getElementById("isChangeToHiragana");
 
 /**
  * YMMの発音記号を削除する
@@ -75,6 +76,7 @@ function replaceHaToWa(text){
 
 function convert(){
 
+    var isChangeToHiragana = isChangeToHiraganaElement.checked;
     var isRemoveSpace = isRemoveSpaceElement.checked;
     var isReplaceSmallLetters = isReplaceSmallLettersElement.checked;
     var isReplaceHaToWa = isReplaceHaToWaElement.checked;
@@ -89,7 +91,7 @@ function convert(){
 
     var options = optionsTemp;
     options.data.sentence = text;
-    options.data.output_type = "katakana";
+    options.data.output_type = isChangeToHiragana ? "hiragana" : "katakana";
 
     axios(options).then((res) => {
         /**
