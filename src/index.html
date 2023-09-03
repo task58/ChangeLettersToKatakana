@@ -13,14 +13,16 @@
     </style>
 </head>
 <body>
-    <a href="https://task58.github.io">トップに戻る</a>
-    <a href="#" onclick="history.back();return false;">前のページに戻る</a>
+    <header>
+        <a href="https://task58.github.io">トップに戻る</a>
+        <a href="#" onclick="history.back();return false;">前のページに戻る</a>
+    </header>
 
     <h1>YMMでの棒読み用にテキストをカタカナに変換</h1>
     <h3>v.1.2.1</v1></h3>
     <p>YMMで棒読みするときはオールカタカナにすれば良いと気付いた。</p>
     <p>上のテキストボックスに文字を入力して変換ボタンを押すと下のテキストボックスに変換後の文字列が出力されます。</p>
-    <p>バグ報告、機能追加要望は<a href="https://github.com/task58/ChangeLettersToKatakana/issues">GithubのIssue</a>からお願いします。</p><br><br>
+    <p>バグ報告、機能追加要望は<a href="https://github.com/task58/ChangeLettersToKatakana/issues" target="_blank" rel="noopener noreferrer">GithubのIssue</a>からお願いします。</p><br><br>
 
     <h2>カタカナ変換</h2>
     <textarea id="input_text" cols="100" rows="20" placeholder="ここにテキストを入力" ></textarea>
@@ -37,26 +39,26 @@
     <label><input type="checkbox" id="isChangeToHiragana">ひらがなを出力する</label><br>
     
     <h3>変更履歴</h3>
-    <pre>
-    2023/9/3 v.1.2.1 ひらがなを出力するオプションを追加
-    2023/9/2 v.1.2.0 助詞「は」を「ワ」に自動的に置き換える機能をオプションで追加
-    2023/9/2 v.1.1.0 YMM使用者向けオプションを追加
-    2023/9/2 v.1.0.0 公開
-    </pre>
+    
+    <p>2023/9/3 v.1.2.1 ひらがなを出力するオプションを追加</p>
+    <p>2023/9/2 v.1.2.0 助詞「は」を「ワ」に自動的に置き換える機能をオプションで追加</p>
+    <p>2023/9/2 v.1.1.0 YMM使用者向けオプションを追加</p>
+    <p>2023/9/2 v.1.0.0 公開</p>
+    
 
     
     <h4>参考</h4>
-    <a href="https://qiita.com/n0bisuke/items/878d2c37afe5a2b83369">Node.jsでひらがな化APIを使って漢字からひらがな/カタカナ変換をする</a>
+    <a href="https://qiita.com/n0bisuke/items/878d2c37afe5a2b83369" target="_blank" rel="noopener noreferrer">Node.jsでひらがな化APIを使って漢字からひらがな/カタカナ変換をする</a>
 
     <h4>使用API</h4>
-    <a href="https://labs.goo.ne.jp/api/jp/hiragana-translation/">gooラボ：カタカナ化API</a>
+    <a href="https://labs.goo.ne.jp/api/jp/hiragana-translation/" target="_blank" rel="noopener noreferrer">gooラボ：カタカナ化API</a>
     
     <script src="./main.js"></script>
 
 </body>
 <footer>
     <h3>リンク</h3>
-    <a href="https://github.com/task58">GitHub プロフィール</a>
-    <a href="http://www.youtube.com/@task58">Youtubeチャンネル</a>
+    <a href="https://github.com/task58" target="_blank" rel="noopener noreferrer">GitHub プロフィール</a><br>
+    <a href="http://www.youtube.com/@task58" target="_blank" rel="noopener noreferrer">Youtubeチャンネル</a><br>
 </footer>
 </html>
