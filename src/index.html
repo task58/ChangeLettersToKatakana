@@ -19,7 +19,7 @@
     </header>
 
     <h1>YMMでの棒読み用にテキストをカタカナに変換</h1>
-    <h3>v.1.2.2</v1></h3>
+    <h3>v.1.3.0</v1></h3>
     <p>YMMで棒読みするときはオールカタカナにすれば良いと気付いた。</p>
     <p>上のテキストボックスに文字を入力して変換ボタンを押すと下のテキストボックスに変換後の文字列が出力されます。</p>
     <p>バグ報告、機能追加要望は<a href="https://github.com/task58/ChangeLettersToKatakana/issues" target="_blank" rel="noopener noreferrer">GithubのIssue</a>からお願いします。</p><br><br>
@@ -28,6 +28,8 @@
     <textarea id="input_text" cols="100" rows="20" placeholder="ここにテキストを入力" ></textarea>
     <br>
     <input type="button" value="変換" id="input_button">
+    <input type="button" value="クリップボードの内容を変換" id="input_clipboard_button">
+    <input type="button" value="出力をクリップボードにコピー" id="output_clipboard_button">
     <br><br>
     <textarea id="output_text" cols="100" rows="20" readonly placeholder="変換後テキスト"></textarea>
     <br>
@@ -41,6 +43,7 @@
     
     <h3>変更履歴</h3>
     
+    <p>2023/9/4 v.1.3.0 クリップボードのテキストを変換、及び出力をクリップボードに貼り付ける機能を追加</p>
     <p>2023/9/3 v.1.2.2 発音記号削除機能をオプション化</p>
     <p>2023/9/3 v.1.2.1 ひらがなを出力するオプションを追加</p>
     <p>2023/9/2 v.1.2.0 助詞「は」を「ワ」に自動的に置き換える機能をオプションで追加</p>

@@ -21,6 +21,8 @@ const optionsTemp = {
 
 var inputElement = document.getElementById("input_text"); //入力用テキストエリア
 var inputButton = document.getElementById("input_button"); //変換ボタン
+var inputClipboardButton = document.getElementById("input_clipboard_button");//クリップボードの内容を変換するためのボタン
+var outputCripboardButton = document.getElementById("output_clipboard_button");//クリップボードコピー用ボタン
 var outputElement = document.getElementById("output_text"); //出力用テキストエリア
 
 //オプション類
@@ -28,7 +30,7 @@ var isRemoveSpaceElement = document.getElementById("isRemoveSpace");
 var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetters");
 var isReplaceParticleElement = document.getElementById("isReplaceParticle");
 var isChangeToHiraganaElement = document.getElementById("isChangeToHiragana");
-var isRemovePhoneticSymbolsElement = document.getElementById("isRemovePhoneticSymbols")
+var isRemovePhoneticSymbolsElement = document.getElementById("isRemovePhoneticSymbols");
 
 //各種テキスト処理に扱う関数のインポート
 import removePhoneticSymbols from "./modules/removePhoneticSymbols"
@@ -76,3 +78,24 @@ function convert(){
 }
 
 inputButton.addEventListener("click",convert)
+outputCripboardButton.addEventListener("click",()=>{
+    if(navigator.clipboard){
+        navigator.clipboard.writeText(outputElement.value);
+    }else{
+        alert("お使いの環境はクリップボードボタンに対応していません...(´;ω;｀)")
+    }
+});
+
+inputClipboardButton.addEventListener("click",()=>{
+    if(navigator.clipboard){
+        navigator.clipboard.readText().then((str)=>{
+            inputElement.value = str;
+            convert()
+        }).catch((e)=>{
+            console.error(e);
+            alert("クリップボードの読み取りに失敗しました...(´・ω・｀)")
+        })
+    }else{
+        alert("お使いの環境はクリップボードボタンに対応していません...(´;ω;｀)")
+    }
+})
