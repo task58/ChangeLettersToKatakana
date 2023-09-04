@@ -31,6 +31,7 @@ var isReplaceSmallLettersElement = document.getElementById("isReplaceSmallLetter
 var isReplaceParticleElement = document.getElementById("isReplaceParticle");
 var isChangeToHiraganaElement = document.getElementById("isChangeToHiragana");
 var isRemovePhoneticSymbolsElement = document.getElementById("isRemovePhoneticSymbols");
+var isCopyToCripboardElement = document.getElementById("isCopyToCripboard");
 
 //各種テキスト処理に扱う関数のインポート
 import removePhoneticSymbols from "./modules/removePhoneticSymbols"
@@ -47,6 +48,7 @@ function convert(){
     var isReplaceSmallLetters = isReplaceSmallLettersElement.checked;
     var isReplaceParticle = isReplaceParticleElement.checked;
     var isRemovePhoneticSymbols = isRemovePhoneticSymbolsElement.checked;
+    var isCopyToCripboard = isCopyToCripboardElement.checked;
 
     /**
      * @type {string}
@@ -70,6 +72,8 @@ function convert(){
         outputText = isReplaceSmallLetters ? replaceSmallLetters(outputText) : outputText;
 
         outputElement.value = outputText;
+
+        if(isCopyToCripboard)writeCripboard(outputText);
     })
     .catch((err) => {
         console.log(err);
@@ -77,14 +81,16 @@ function convert(){
     });
 }
 
-inputButton.addEventListener("click",convert)
-outputCripboardButton.addEventListener("click",()=>{
+function writeCripboard(text){
     if(navigator.clipboard){
-        navigator.clipboard.writeText(outputElement.value);
+        navigator.clipboard.writeText(text);
     }else{
         alert("お使いの環境はクリップボードボタンに対応していません...(´;ω;｀)")
     }
-});
+}
+
+inputButton.addEventListener("click",convert)
+outputCripboardButton.addEventListener("click",writeCripboard(outputElement.value));
 
 inputClipboardButton.addEventListener("click",()=>{
     if(navigator.clipboard){
