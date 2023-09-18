@@ -90,7 +90,9 @@ function writeCripboard(text){
 }
 
 inputButton.addEventListener("click",convert)
-outputCripboardButton.addEventListener("click",writeCripboard(outputElement.value));
+outputCripboardButton.addEventListener("click",()=>{
+    writeCripboard(outputElement.value)
+});
 
 inputClipboardButton.addEventListener("click",()=>{
     if(navigator.clipboard){
